@@ -1,0 +1,63 @@
+
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable('financial_reports', function (table) {
+    table.increments();
+    table.string('case_id');
+    table.date('reportingperiodstartdate');
+    table.date('reportingperiodenddate');
+    table.date('dateofapprovalofannualreport');
+    table.date('dateofgeneralmeeting');
+    table.enu('typeofauditorassistance', ["AUDITORS REPORT", "AUDITORS REPORT(OTHER NON - ASSURANCE REPORTS)", "NO AUDITOR ASSISTANCE", "THE INDEPENDENT AUDITORS REPORT (REVIEW)", "AUDITORS REPORT ON EXTENDED REVIEW", null], { useNative: true, enumName: 'auditorassistance_type' });
+    table.enu('classofreportingentity', ["REPORTING CLASS A", "REPORTING CLASS B", "REPORTING CLASS C", "REPORTING CLASS D", null], { useNative: true, enumName: 'reportingentity_type' });
+    table.string('supplementaryinformationonothermatters');
+    table.string('indentificationnumbercvrofauditfirm', 8);
+    table.string('nameandsurnameofauditor');
+    table.boolean('ifrs').defaultTo(false);
+    table.string('unit').notNullable();
+    table.enu('number_scale', ['1E0', '1E3', '1E6', '1E9', null], { useNative: true, enumName: 'number_scale_type' }).notNullable().defaultTo('1E0');
+    table.decimal('revenue', 18, 2);
+    table.decimal('other_income', 18, 2);
+    table.decimal('costs', 18, 2);
+    table.decimal('change_in_inventories', 18, 2);
+    table.decimal('gross_result', 18, 2);
+    table.decimal('operating_costs', 18, 2);
+    table.decimal('other_operating_income', 18, 2);
+    table.decimal('staff_expenses', 18, 2);
+    table.decimal('ebitda', 18, 2);
+    table.decimal('depreciation', 18, 2);
+    table.decimal('ebit', 18, 2);
+    table.decimal('interest_income', 18, 2);
+    table.decimal('interest_expenses', 18, 2);
+    table.decimal('net_financial_income', 18, 2);
+    table.decimal('tax_expenses', 18, 2);
+    table.decimal('profit_loss', 18, 2).notNullable();
+    table.decimal('intangible_assets', 18, 2);
+    table.decimal('property_plant_and_equipment', 18, 2);
+    table.decimal('non_current_investments_and_receivables', 18, 2);
+    table.decimal('deferred_tax_assets', 18, 2);
+    table.decimal('other_financial_assets', 18, 2);
+    table.decimal('non_current_assets', 18, 2);
+    table.decimal('inventories', 18, 2);
+    table.decimal('short_term_receivables', 18, 2);
+    table.decimal('cash', 18, 2);
+    table.decimal('current_assets', 18, 2);
+    table.decimal('assets', 18, 2).notNullable();
+    table.decimal('contributed_capital', 18, 2).notNullable();
+    table.decimal('reserves', 18, 2);
+    table.decimal('dividend', 18, 2);
+    table.decimal('retained_earnings', 18, 2);
+    table.decimal('minority_interests', 18, 2);
+    table.decimal('equity', 18, 2).notNullable();
+    table.decimal('provisions', 18, 2);
+    table.decimal('short_term_debt', 18, 2);
+    table.decimal('long_term_debt', 18, 2);
+    table.decimal('debt', 18, 2);
+    table.decimal('liabilities_and_equity', 18, 2);
+    table.decimal('equity_loan', 18, 2);
+    table.timestamps();
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTable('financial_reports');
+};
